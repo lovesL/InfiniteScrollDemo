@@ -1,17 +1,20 @@
-import React, { useRef, useState } from "react";
-import styles from "./index.less";
-import { useModel } from "umi";
-import { InfiniteScroll, List, SearchBar } from "antd-mobile";
-import { FilterOutline } from "antd-mobile-icons";
+import React, { useRef, useState } from 'react';
+import styles from './index.less';
+import { useModel } from 'umi';
+import { InfiniteScroll, List, SearchBar } from 'antd-mobile';
+import { FilterOutline } from 'antd-mobile-icons';
+import { mockRequest } from './mock';
+import { useRequest } from 'ahooks';
 
 const Tower = () => {
   const dom = useRef(null);
   const [visible, setVisible] = useState(false);
   const [visible1, setVisible1] = useState(false);
   const [data, setData] = useState([]);
-  const { initialState } = useModel("@@initialState");
+  const { initialState } = useModel('@@initialState');
   const [refresh, setRefresh] = useState(true);
-  const [hasMore, setHasMore] = useState(false);
+  const [hasMore, setHasMore] = useState(false); //  改成true
+  const a = useRequest(mockRequest, { manual: true });
   let page = 0;
 
   const onChange = (value) => {
@@ -26,8 +29,8 @@ const Tower = () => {
   };
 
   const loadMore = async () => {
-    ++page;
-    console.log(page);
+    console.log(123232); ///// 这里
+    await a.run();
   };
 
   return (
