@@ -1,20 +1,15 @@
-import React, { useRef, useState } from 'react';
-import styles from './index.less';
-import { useModel } from 'umi';
-import { InfiniteScroll, List, SearchBar } from 'antd-mobile';
-import { FilterOutline } from 'antd-mobile-icons';
+import React, { useRef, useState } from "react";
+import styles from "./index.less";
+import { useModel } from "umi";
+import { InfiniteScroll, List, SearchBar } from "antd-mobile";
+import { FilterOutline } from "antd-mobile-icons";
 
 const Tower = () => {
   const dom = useRef(null);
   const [visible, setVisible] = useState(false);
   const [visible1, setVisible1] = useState(false);
   const [data, setData] = useState([]);
-  const { initialState } = useModel('@@initialState');
-  const [value, setValue] = useState('tower');
-  const [result, setResult] = useState([]);
-  const [packages, setPackages] = useState([]);
-  const [current, setCurrent] = useState([]);
-  const [input, setInput] = useState(null);
+  const { initialState } = useModel("@@initialState");
   const [refresh, setRefresh] = useState(true);
   const [hasMore, setHasMore] = useState(false);
   let page = 0;
