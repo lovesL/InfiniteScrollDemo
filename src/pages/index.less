@@ -1,23 +1,45 @@
-.center {
-  width: 100vw;
-  height: 100vh;
-  background: url("../assets/bg.jpg") no-repeat center center;
-  background-size: cover;
-  overflow: hidden;
-  .content{
-    width: 100%;
-    position: relative;
-    top: 15%;
-    h3{
-      text-align: center;
-      font-size: 45px;
-      color:#fff;
-      margin-bottom: 150px;
-    }
-    .extraPart {
-      display: flex;
-      padding-left: 12px;
-    }
+.search_box {
+  position: fixed;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  z-index: 10;
+  height: 100px;
+  padding: 20px;
+  background: #fff;
+
+  .filter_icon {
+    padding: 10px 0px 10px 15px;
+    box-sizing: content-box;
+    font-size: 50px;
+  }
+}
+
+.wrapper {
+  margin-top: 100px;
+
+  .content {
   }
 
+  .list_box {
+    position: relative;
+
+    .item_index {
+      font-size: 35px;
+    }
+
+    .time_txt {
+      position: absolute;
+      right: 20px;
+      top: 56%;
+      transform: translateY(-50%);
+      font-size: 30px;
+      margin-left: 15px;
+    }
+  }
+}
+
+.mar_top {
+  position: absolute;
+  bottom: 50px;
 }

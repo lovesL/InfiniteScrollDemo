@@ -1,0 +1,28 @@
+.app {
+  height: 100vh;
+  overflow: hidden;
+  background: #eee;
+}
+
+.top {
+  position: fixed;
+  top: 0;
+  z-index: 99;
+  width: 100%;
+  background: #fff;
+  border-bottom: solid 1px var(--adm-border-color);
+}
+
+.body {
+  overflow-y: auto;
+  height: calc(100% - 46px);
+}
+
+.bottom {
+  position: fixed;
+  bottom: 0;
+  z-index: 99;
+  width: 100%;
+  background: #fff;
+  border-top: solid 1px var(--adm-border-color);
+}

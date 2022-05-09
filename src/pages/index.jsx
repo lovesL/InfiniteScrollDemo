@@ -1,68 +1,63 @@
-import React, { useEffect, useState } from 'react';
-import { imageCode,login } from '@/apis/login';
-import { useRequest } from 'ahooks';
-import { createHash } from 'crypto';
-import { Form, Input, Button } from 'antd-mobile'
+import React, { useRef, useState } from 'react';
 import styles from './index.less';
+import { useModel } from 'umi';
+import { InfiniteScroll, List, SearchBar } from 'antd-mobile';
+import { FilterOutline } from 'antd-mobile-icons';
 
-const HomePage = () => {
-  const a = useRequest(imageCode,{ manual:true });
-  const b = useRequest(login,{ manual:true })
-  const [refresh,setRefresh] = useState(true);
-  const [image,setImage] = useState('');
-  useEffect(()=>{
-    a.run().then(res=>{
-      setImage(res)
-    })
-  },[refresh])
+const Tower = () => {
+  const dom = useRef(null);
+  const [visible, setVisible] = useState(false);
+  const [visible1, setVisible1] = useState(false);
+  const [data, setData] = useState([]);
+  const { initialState } = useModel('@@initialState');
+  const [value, setValue] = useState('tower');
+  const [result, setResult] = useState([]);
+  const [packages, setPackages] = useState([]);
+  const [current, setCurrent] = useState([]);
+  const [input, setInput] = useState(null);
+  const [refresh, setRefresh] = useState(true);
+  const [hasMore, setHasMore] = useState(false);
+  let page = 0;
 
-  const onFinish = (values) => {
-    b.run({
-      ...values,
-      password: createHash('md5').update(values.password).digest('hex'),
-    }).then(res=>{
-      if(res && res.statusCode == 0){
-        
-      }
-    })
-  }
+  const onChange = (value) => {
+    page = 0;
+    setInput(value);
+  };
 
-  const handleChangeImage = () => {
-    setRefresh(x=>!x);
-  }
+  const handleRefsh = () => {
+    page = 0;
+    setRefresh((x) => !x);
+    setVisible(false);
+  };
+
+  const loadMore = async () => {
+    ++page;
+    console.log(page);
+  };
 
   return (
-      <div className={ styles.center }>
-        <div className={ styles.content }>
-          <h3>线路工程环水保核查系统</h3>
-          <Form
-              mode="card"
-              requiredMarkStyle='text-optional'
-              onFinish={onFinish}
-              layout='horizontal'
-              footer={
-                <Button style={{ marginTop:30 }} block type='submit' color='primary' size='large'>
-                  提交
-                </Button>
-              }
-          >
-            <Form.Item name='username' label='姓名' rules={[{ required: true }]}>
-              <Input placeholder='请输入姓名' clearable />
-            </Form.Item>
-            <Form.Item name='password' label='密码' rules={[{ required: true }]}>
-              <Input placeholder='请输入密码' clearable />
-            </Form.Item>
-            <Form.Item label='验证码' name="captcha"
-                       rules={[{ required: true }]}
-                       extra={<div onClick={ handleChangeImage }
-                                   className={ styles.extraPart }
-                                   dangerouslySetInnerHTML={ { __html: image } }/>}>
-              <Input placeholder='请输入' clearable />
-            </Form.Item>
-          </Form>
-        </div>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+      <div className={styles.search_box}>
+        <SearchBar
+          placeholder="请输入内容"
+          onSearch={onChange}
+          onChange={onChange}
+          style={{ width: '100%' }}
+        />
+        <FilterOutline className={styles.filter_icon} />
       </div>
+      <div className={styles.wrapper}>
+        <List>
+          {data.map((item, index) => (
+            <List.Item key={index} className={styles.list_box}>
+              1111
+            </List.Item>
+          ))}
+        </List>
+        <InfiniteScroll loadMore={loadMore} hasMore={hasMore} />
+      </div>
+    </div>
   );
 };
 
-export default HomePage;
+export default Tower;
